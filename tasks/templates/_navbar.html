@@ -14,14 +14,51 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        {% if request.path == '/' %}
+        <li class="nav-item">
+          <a class="nav-link" href="/info">Ver Informacion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/perfil">Ver Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/exportar">Exportar</a>
+        </li>
+        {% elif request.path == '/info/' %}
         <li class="nav-item">
           <a href="/" class="nav-link">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/perfil">Ver Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/exportar">Exportar</a>
+        </li>
+        {% elif request.path == '/perfil/' %}
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/info">Ver Informacion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/exportar">Exportar</a>
+        </li>
+        {% elif request.path == '/exportar/' %}
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/info">Ver Informacion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/perfil">Ver Perfil</a>
+        </li>
+        {% endif %}
+        
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a href="{% url 'tasks_completed' %}" class="nav-link"
-            >complted tasks</a
-          >
+          <a href="{% url 'tasks_completed' %}" class="nav-link">Completed Tasks</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'tasks' %}" class="nav-link">Tasks</a>
@@ -33,6 +70,9 @@
           <a class="nav-link" href="/logout">Logout</a>
         </li>
         {% else %}
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
         <li class="nav-item">
           <a href="/signin" class="nav-link">Login</a>
         </li>

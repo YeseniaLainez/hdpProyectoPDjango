@@ -55,9 +55,18 @@ def create_task(request):
         except ValueError:
             return render(request, 'create_task.html', {"form": TaskForm, "error": "Error creating task."})
 
-
+#Se llama todos los navegadores
 def home(request):
     return render(request, 'home.html')
+
+def info(request):
+    return render(request, 'info.html')
+
+def perfil(request):
+    return render(request, 'perfil.html')
+
+def exportar(request):
+    return render(request, 'exportar.html')
 
 
 @login_required

@@ -1,7 +1,45 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <div class="container">
-  <h1>Home</h1>
-</div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Inicio</h1>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+        <h2>Desempleo</h2>
+        <p>Texto descriptivo sobre la problemática del desempleo.</p>
+      </div>
+      </div>
+    </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+            <h2>Visión</h2>
+            <p>Texto descriptivo sobre la visión del sistema o aplicación.</p>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-6">
+      <div class="card">
+      <div class="card-header">
+      <h2>Situación Actual</h2>
+      <p>Texto descriptivo sobre la situación actual del desempleo.</p>
+    </div>
+  </div>
+  </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+      <h2>Misión</h2>
+      <p>Texto descriptivo sobre la misión del sistema o aplicación.</p>
+    </div>
+  </div>
+  </div>
+    </div>
 {% endblock %}
