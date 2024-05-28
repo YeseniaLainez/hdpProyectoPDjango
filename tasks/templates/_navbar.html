@@ -14,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        {% if request.path == '/' %}
+        {% if request.path == '/home/' %}
         <li class="nav-item">
           <a class="nav-link" href="/info">Ver Informacion</a>
         </li>
@@ -26,7 +26,7 @@
         </li>
         {% elif request.path == '/info/' %}
         <li class="nav-item">
-          <a href="/" class="nav-link">Home</a>
+          <a href="/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/perfil">Ver Perfil</a>
@@ -36,7 +36,7 @@
         </li>
         {% elif request.path == '/perfil/' %}
         <li class="nav-item">
-          <a href="/" class="nav-link">Home</a>
+          <a href="/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/info">Ver Informacion</a>
@@ -46,7 +46,7 @@
         </li>
         {% elif request.path == '/exportar/' %}
         <li class="nav-item">
-          <a href="/" class="nav-link">Home</a>
+          <a href="/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/info">Ver Informacion</a>
@@ -57,24 +57,18 @@
         {% endif %}
         
         {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a href="{% url 'tasks_completed' %}" class="nav-link">Completed Tasks</a>
+         <li class="nav-item">
+          <a href="" class="nav-link">Login</a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'tasks' %}" class="nav-link">Tasks</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'create_task' %}" class="nav-link">Create Task</a>
-        </li>
+          <a href="/signup" class="nav-link">Register</a>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
         </li>
+       
         {% else %}
         <li class="nav-item">
-          <a href="/" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="/signin" class="nav-link">Login</a>
+          <a href="" class="nav-link">Login</a>
         </li>
         <li class="nav-item">
           <a href="/signup" class="nav-link">Register</a>

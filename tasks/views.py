@@ -23,7 +23,7 @@ def signup(request):
                     request.POST["username"], password=request.POST["password1"])
                 user.save()
                 login(request, user)
-                return redirect('tasks')
+                return redirect('home')
             except IntegrityError:
                 return render(request, 'signup.html', {"form": UserCreationForm, "error": "Username already exists."})
 
@@ -33,12 +33,12 @@ def signup(request):
 @login_required
 def tasks(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'tasks.html', {"tasks": tasks})
+    return render(request, 'home.html', {"home": tasks})
 
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'tasks.html', {"tasks": tasks})
+    return render(request, 'home.html', {"tasks": tasks})
 
 
 @login_required
@@ -55,7 +55,7 @@ def create_task(request):
         except ValueError:
             return render(request, 'create_task.html', {"form": TaskForm, "error": "Error creating task."})
 
-#Se llama todos los navegadores
+#Se llama todos los navegadores para usuario
 def home(request):
     return render(request, 'home.html')
 
@@ -68,13 +68,16 @@ def perfil(request):
 def exportar(request):
     return render(request, 'exportar.html')
 
+#Se llama todos los navegadores para admin
+def admin(request):
+    return render(request, 'admin.html')
 
 @login_required
 def signout(request):
     logout(request)
     return redirect('home')
 
-
+"""
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', {"form": AuthenticationForm})
@@ -85,8 +88,28 @@ def signin(request):
             return render(request, 'signin.html', {"form": AuthenticationForm, "error": "Username or password is incorrect."})
 
         login(request, user)
-        return redirect('tasks')
-
+        return redirect('home')
+"""
+def signin(request):
+    if request.method == 'GET':
+        return render(request, 'signin.html', {"form": AuthenticationForm()})
+    else:
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if username == 'mario' and password == '231':
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('admin')
+            else:
+                return render(request, 'signin.html', {"form": AuthenticationForm(), "error": "Username or password is incorrect."})
+        else:
+            user = authenticate(request, username=username, password=password)
+            if user is None:
+                return render(request, 'signin.html', {"form": AuthenticationForm(), "error": "Username or password is incorrect."})
+            login(request, user)
+            return redirect('home')
 @login_required
 def task_detail(request, task_id):
     if request.method == 'GET':
