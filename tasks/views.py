@@ -70,7 +70,22 @@ def exportar(request):
 
 #Se llama todos los navegadores para admin
 def admin(request):
-    return render(request, 'admin.html')
+    return render(request, 'dashboard.html')
+def dashadmin(request):
+    return render(request, 'dashadmin.html')
+
+def cuenta(request):
+    return render(request, 'cuenta.html')
+
+def publicaciones(request):
+    return render(request, 'publicaciones.html')
+
+def paginas(request):
+    return render(request, 'paginas.html')
+
+def configuraciones(request):
+    return render(request, 'configuraciones.html')
+
 
 @login_required
 def signout(request):

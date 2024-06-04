@@ -24,6 +24,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/exportar">Exportar</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
         {% elif request.path == '/info/' %}
         <li class="nav-item">
           <a href="/home" class="nav-link">Home</a>
@@ -33,6 +36,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/exportar">Exportar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
         </li>
         {% elif request.path == '/perfil/' %}
         <li class="nav-item">
@@ -44,6 +50,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/exportar">Exportar</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
         {% elif request.path == '/exportar/' %}
         <li class="nav-item">
           <a href="/home" class="nav-link">Home</a>
@@ -54,25 +63,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/perfil">Ver Perfil</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
         {% endif %}
         
         {% if user.is_authenticated %}
-         <li class="nav-item">
-          <a href="" class="nav-link">Login</a>
-        </li>
-        <li class="nav-item">
-          <a href="/signup" class="nav-link">Register</a>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-       
-        {% else %}
-        <li class="nav-item">
-          <a href="" class="nav-link">Login</a>
-        </li>
-        <li class="nav-item">
-          <a href="/signup" class="nav-link">Register</a>
-        </li>
+
         {% endif %}
       </ul>
     </div>
