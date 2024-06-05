@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -39,6 +39,13 @@
     <nav class="sidebar">
         <div class="container">
             <a class="navbar-brand" href="/adminD/">Dashboard</a>
+            <style>
+                .navbar-brand {
+                 font-family: Georgia, 'Times New Roman', Times, serif;
+                  font-size: 150%; /*  */
+                  font-weight: bolder;
+                }
+              </style>
             <ul class="nav flex-column mt-3">
                 {% if request.path == '/adminD/' %}
                 <li class="nav-item">
@@ -125,8 +132,18 @@
         </div>
     </nav>
     <div class="content">
+        
         <!-- Aquí va el contenido principal de la página -->
-        <h1>Bienvenido al Dashboard</h1>
+        <h1 class="centered-header">Bienvenido al Panel de Administración</h1>
+        <style>
+            .centered-header {
+              text-align: center;
+              font-family: Georgia, 'Times New Roman', Times, serif;
+              font-size: 2.5rem;
+              font-weight: bold;
+              color: #333;
+            }
+          </style>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,16 +1,90 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
+{% block content %}
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  .container {
+    max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  .form-group {
+    margin-bottom: 20px;
+  
+  }
+  .btn-primary {
+    width: 100%;
+    background-color: #223447;
+    color:#f2f4f7;
+  }
+  .btn-cancel {
+    width: 100%;
+  }
+  .error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    display: none;
+  }
+  .error-field {
+    border-color: #dc3545 !important;
+  }
+</style>
 <div class="container">
-  <h1>Login</h1>
+  <h1 class="text-center">Login</h1>
 
-  {{error}}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+  {% endif %}
 
-  <form action="/signup/" method="POST">
-    {% csrf_token %} {{form.as_p}}
-    <button class="btn btn-primary">Signup</button>
-    <button>
-      <a href="/" class="btn btn-primary">Cancelar</a>
-      </button>
+  <form id="loginForm" action="/signup/" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+      <small class="error-message">{{ field.errors }}</small>
+    </div>
+    {% endfor %}
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Sing up</button>
+    </div>
+    <div class="form-group">
+      <a href="/" class="btn btn-cancel">Cancelar</a>
+    </div>
   </form>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#loginForm').submit(function(event) {
+      var form = $(this);
+      var inputs = form.find('input, select, textarea');
+      var hasErrors = false;
+      
+      inputs.each(function() {
+        var input = $(this);
+        var errorMessage = input.parent().find('.error-message');
+        
+        if (input.hasClass('errorlist')) {
+          errorMessage.text(input.text()).show();
+          input.addClass('error-field');
+          hasErrors = true;
+        } else {
+          errorMessage.hide();
+          input.removeClass('error-field');
+        }
+      });
+      
+      if (hasErrors) {
+        event.preventDefault();
+      }
+    });
+  });
+</script>
 {% endblock %}
