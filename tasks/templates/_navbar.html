@@ -1,12 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 3px solid #555; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
   <div class="container">
-    <a class="navbar-brand" href="/">Desempleo y Economia</a>
+    <a class="navbar-brand" href="/" style="text-shadow: 2px 2px 4px #000000; margin-left: 0; padding-left: 0;">
+      <i class="fas fa-chart-bar" style="margin-right: 5px;"></i>Desempleo y Economía
+    </a>
     <style>
       .navbar-brand {
        font-family: Georgia, 'Times New Roman', Times, serif;
         font-size: 250%; /*  */
         font-weight: bolder;
       }
+      .nav-link {
+        font-family: Arial, sans-serif;
+        font-size: 110%;
+        color: #ddd;
+        text-shadow: 1px 1px 2px #000;
+      }
+      .nav-item:hover .nav-link {
+        color: #fff;
+        background-color: #555;
+      }
+      .container {
+          padding-left: 0;
+      }
+      
     </style>
     <button
       class="navbar-toggler"
@@ -23,55 +39,55 @@
       <ul class="navbar-nav ms-auto">
         {% if request.path == '/home/' %}
         <li class="nav-item">
-          <a class="nav-link" href="/info">Ver Informacion</a>
+          <a class="nav-link" href="/info"><i class="fas fa-info-circle" style="margin-right: 5px;"></i>Ver Información</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/perfil">Ver Perfil</a>
+          <a class="nav-link" href="/perfil"><i class="fas fa-user" style="margin-right: 5px;"></i>Ver Perfil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/exportar">Exportar</a>
+          <a class="nav-link" href="/exportar"><i class="fas fa-file-export" style="margin-right: 5px;"></i>Exportar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+        <li class="nav-item logout-icon">
+          <a class="nav-link" href="/"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout</a>
         </li>
         {% elif request.path == '/info/' %}
         <li class="nav-item">
-          <a href="/home" class="nav-link">Home</a>
+          <a href="/home" class="nav-link"><i class="fas fa-home" style="margin-right: 5px;"></i>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/perfil">Ver Perfil</a>
+          <a class="nav-link" href="/perfil"><i class="fas fa-user" style="margin-right: 5px;"></i>Ver Perfil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/exportar">Exportar</a>
+          <a class="nav-link" href="/exportar"><i class="fas fa-file-export" style="margin-right: 5px;"></i>Exportar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+        <li class="nav-item logout-icon">
+          <a class="nav-link" href="/"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout</a>
         </li>
         {% elif request.path == '/perfil/' %}
         <li class="nav-item">
-          <a href="/home" class="nav-link">Home</a>
+          <a href="/home" class="nav-link"><i class="fas fa-home" style="margin-right: 5px;"></i>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/info">Ver Informacion</a>
+          <a class="nav-link" href="/info"><i class="fas fa-info-circle" style="margin-right: 5px;"></i>Ver Información</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/exportar">Exportar</a>
+          <a class="nav-link" href="/exportar"><i class="fas fa-file-export" style="margin-right: 5px;"></i>Exportar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+        <li class="nav-item logout-icon">
+          <a class="nav-link" href="/"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout</a>
         </li>
         {% elif request.path == '/exportar/' %}
         <li class="nav-item">
-          <a href="/home" class="nav-link">Home</a>
+          <a href="/home" class="nav-link"><i class="fas fa-home" style="margin-right: 5px;"></i>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/info">Ver Informacion</a>
+          <a class="nav-link" href="/info"><i class="fas fa-info-circle" style="margin-right: 5px;"></i>Ver Información</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/perfil">Ver Perfil</a>
+          <a class="nav-link" href="/perfil"><i class="fas fa-user" style="margin-right: 5px;"></i>Ver Perfil</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+        <li class="nav-item logout-icon">
+          <a class="nav-link" href="/"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout</a>
         </li>
         {% endif %}
         
@@ -79,7 +95,6 @@
 
         {% endif %}
       </ul>
-      </style>
     </div>
   </div>
 </nav>

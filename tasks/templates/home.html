@@ -2,6 +2,65 @@
 
 {% block content %}
 
+<style>
+    body {
+        font-family: 'Times New Roman', serif;
+        color: #2c3e50;
+    }
+    h1 {
+        color: #273c75;
+        font-weight: bold;
+        text-align: center; /* Centrar el título */
+    }
+    .card {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+    .card-header {
+        background-color: #e9ecef;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px 15px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    .icon {
+        font-size: 30px;
+        margin-right: 15px;
+        color: #273c75;
+    }
+    h2 {
+        color: #273c75;
+        font-weight: bold;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+    }
+    p {
+        padding: 15px;
+        line-height: 1.5;
+        text-align: justify; /* Justificar el texto */
+       
+    }
+    .notes-style {
+        background-color: #fff3cd; /* Color de fondo amarillo claro */
+        border-left: 5px solid #ffeeba; /* Borde izquierdo más oscuro para destacar */
+        font-style: italic; /* Estilo de fuente cursiva para un aspecto de nota */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra más pronunciada para resaltar */
+        position: sticky; /* Posición fija al desplazarse */
+        top: 20px; /* Espacio desde la parte superior */
+        height: 100%; /* Altura completa */
+    }
+    @media (max-width: 768px) {
+        .flex-column {
+            flex-direction: column;
+        }
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -9,37 +68,67 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-        <h2>Desempleo</h2>
-        <p>Texto descriptivo sobre la problemática del desempleo.</p>
-      </div>
-      </div>
-    </div>
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-            <h2>Visión</h2>
-            <p>Texto descriptivo sobre la visión del sistema o aplicación.</p>
-          </div>
+        <div class="col-md-3">
+            <div class="card notes-style">
+                <div class="card-header">
+                    <h2><span class="icon"><i class="fas fa-briefcase"></i></span>Desempleo</h2>
+                    <p>
+                      El desempleo representa uno de los mayores desafíos económicos y sociales en la actualidad. Esta situación no solo afecta la estabilidad financiera de los individuos, sino que también tiene repercusiones profundas en la salud mental y el bienestar general de las personas. Factores como la automatización, los cambios en la industria y las crisis económicas globales han contribuido a incrementar las tasas de desempleo en muchas regiones.
+                      </p>
+                      <p>
+                      Es crucial considerar varios aspectos al abordar el desempleo: 
+                      </p>
+                      <ul>
+                          <li><strong>Educación y capacitación:</strong> La inversión en educación es fundamental para preparar a la fuerza laboral para las demandas del mercado laboral moderno, especialmente en áreas de rápido crecimiento como la tecnología y las energías renovables.</li>
+                          <li><strong>Flexibilidad laboral:</strong> Fomentar modelos de trabajo más flexibles, como el trabajo remoto y los horarios ajustables, puede abrir más oportunidades para personas que de otro modo estarían excluidas del mercado laboral.</li>
+                          <li><strong>Apoyo gubernamental:</strong> Los programas de apoyo y estímulo gubernamentales son esenciales para proteger a los trabajadores desempleados y facilitar su reintegración en el mercado laboral.</li>
+                          <li><strong>Innovación empresarial:</strong> Incentivar a las empresas para que innoven y creen nuevos puestos de trabajo puede ser un motor clave para reducir el desempleo.</li>
+                      </ul>
+                      <p>
+                      Abordar el desempleo requiere un enfoque multifacético que involucre a todos los sectores de la sociedad, desde el gobierno hasta las empresas privadas y las organizaciones sin fines de lucro, para asegurar un futuro más estable y próspero para todos.
+                      </p>
+                </div>
+            </div>
         </div>
-      </div>
-    <div class="col-md-6">
-      <div class="card">
-      <div class="card-header">
-      <h2>Situación Actual</h2>
-      <p>Texto descriptivo sobre la situación actual del desempleo.</p>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><span class="icon"><i class="fas fa-eye"></i></span>Visión</h2>
+                            <p>
+                              Nuestra Visión es proporcionar una plataforma integral que ilustre el impacto del desempleo en la economía de un país, ofreciendo informacion detallada y datos en tiempo real. Aspiramos a ser una herramienta esencial para investigadores, formuladores de políticas y ciudadanos interesados, facilitando la comprensión de cómo el desempleo afecta diversos aspectos económicos y sociales.
+                              </p>
+                              <p>
+                              Nuestro objetivo es fomentar una mayor conciencia y comprensión sobre las causas y consecuencias del desempleo, promoviendo así un diálogo informado y la creación de políticas más efectivas que puedan mitigar sus efectos negativos. Creemos en el poder de la información para impulsar cambios positivos y en nuestra capacidad para proporcionar esa información de manera accesible y comprensible para todos.
+                              </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><span class="icon"><i class="fas fa-bullseye"></i></span>Misión</h2>
+                            <p>
+                              Nuestra misión es empoderar a decisores, investigadores y al público en general con información precisa y actualizada sobre el desempleo y la economía o su factor mas significativo (PIB). Nos comprometemos a recopilar datos de diversas fuentes para ofrecer una visión completa y multifacética del desempleo.
+                              </p>
+                              <p>
+                              Estamos dedicados a mejorar la comprensión pública y profesional sobre este tema crítico, proporcionando herramientas que permitan una evaluación efectiva del tema en si. A través de nuestra plataforma, buscamos influir positivamente en la formulación de políticas y en la creación de oportunidades laborales, contribuyendo así a una economía más robusta y equitativa.
+                              </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><span class="icon"><i class="fas fa-chart-line"></i></span>Situación Actual</h2>
+                            <p>Texto descriptivo sobre la situación actual del desempleo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-      <h2>Misión</h2>
-      <p>Texto descriptivo sobre la misión del sistema o aplicación.</p>
-    </div>
-  </div>
-  </div>
-    </div>
+</div>
+
 {% endblock %}

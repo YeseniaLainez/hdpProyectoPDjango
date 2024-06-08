@@ -1,5 +1,4 @@
-import os
-import chardet
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -8,14 +7,13 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models import Task
-import csv
-import requests
 from django.shortcuts import render
 from io import StringIO
 from .forms import TaskForm
-import zipfile
-import io
-import tempfile
+from .models import UsuarioComun
+from django.views.decorators.http import require_http_methods
+from django.contrib import messages 
+
 
 # Create your views here.
 
@@ -180,5 +178,53 @@ def graficoDesempleo_view(request):
       return render(request, 'info.html', {'url_grafico': url_grafico})
   
   
+def graficoPIB_view(request):
+       # Obtener la URL de compartir del gráfico (reemplaza con la URL real)
+      url_graficos = ['https://datos.bancomundial.org/share/widget?end=2022&indicators=NY.GDP.MKTP.CD&locations=SV&start=2018'
+      'https://datos.bancomundial.org/share/widget?end=2022&indicators=NY.GDP.MKTP.KD.ZG&locations=SV&start=2018'
+      ]
+       # Renderizar la plantilla con la URL del gráfico
+
+      return render(request, 'info.html', {'url_graficos': url_graficos})
+  
+
+
  
- 
+
+@require_http_methods(["POST", "GET"])
+def guardar_usuario(request):
+    if request.method == 'POST':
+        nombre_completo = request.POST['nombre_completo']
+        edad = request.POST['edad']
+        fecha_nacimiento = request.POST['fecha_nacimiento']
+        telefono = request.POST['telefono']
+        direccion = request.POST['direccion']
+
+        usuario = UsuarioComun(
+            nombre_completo=nombre_completo,
+            edad=edad,
+            fecha_nacimiento=fecha_nacimiento,
+            telefono=telefono,
+            direccion=direccion
+        )
+        usuario.save()
+
+        # Verifica si el usuario se ha guardado correctamente
+        if UsuarioComun.objects.filter(id=usuario.id).exists():
+            messages.success(request, 'Información guardada correctamente.')
+        else:
+            messages.error(request, 'No se pudo guardar la información.')
+
+        return redirect('alguna_url_para_redireccionar')  # Asegúrate de cambiar esta URL
+
+    return render(request, 'perfil.html')
+
+def perfil_usuario(request):
+    try:
+        usuario = UsuarioComun.objects.get(user=request.user)  # Asumiendo que cada usuario tiene un solo perfil
+        tiene_info = True
+    except UsuarioComun.DoesNotExist:
+        usuario = None
+        tiene_info = False
+
+    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})

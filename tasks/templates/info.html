@@ -1,65 +1,181 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .card-chart iframe {
+        width: 100%;
+        height: auto;
+        min-height: 500px; /* Asegura una altura mínima para visibilidad */
+        margin: 20px;
+        width: 100%;
+        height: 500px; /* Altura fija para mantener la consistencia */
+        border: none; /* Elimina el borde del iframe */
+    }
+    .card-chart {
+        margin: 10px;
+        padding: 5px; /* Margen interno para crear espacio dentro del contenedor */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra para destacar el contenedor */
+        border: 1px solid #ddd; /* Borde sutil */
+        background-color: #fff; /* Color de fondo */
+        transition: transform 0.3s ease-in-out; /* Transición suave para hover */
+    }
+    @media (max-width: 768px) {
+        .card-chart {
+            margin: 10px; /* Reduce el margen en dispositivos más pequeños */
+            padding: 5px; /* Reduce el padding en dispositivos más pequeños */
+        }
+    }
+    .card-chart:hover {
+        transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+    }
+
+    
+    .nav-tabs {
+        margin-bottom: 20px; /* Espacio entre las pestañas y los gráficos */
+    }
+    .nav-tabs .nav-link {
+        font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+        font-size: 16px; /* Aumenta el tamaño de la fuente */
+        font-weight: bold; /* Hace el texto en negrita */
+        color: #ffffff; /* Establece el color del texto a blanco */
+        background-color: #2d4b6b; /* Color de fondo azul para las pestañas no activas */
+        border-radius: 5px; /* Bordes redondeados */
+        margin-right: 5px; /* Espacio entre las pestañas */
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #3d6b34; /* Color de fondo para la pestaña activa */
+        color: #ffffff; /* Color del texto para la pestaña activa */
+    }
+    .nav-tabs {
+        margin-top: 30px; /* Espacio en la parte superior */
+        margin-bottom: 20px; /* Espacio entre las pestañas y los gráficos */
+        margin-left: 30px; /* Añade espacio a la izquierda para alejarlo de la orilla */
+    }
+
+    .card-header {
+        background-color: #f8f9fa; /* Fondo claro para el encabezado */
+        padding: 10px;
+        font-family: 'Helvetica', sans-serif; /* Fuente moderna y limpia */
+        color: #333; /* Color de texto oscuro para mejor legibilidad */
+        text-align: center; /* Alineación del texto */
+    }
+
+    .responsive-iframe {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* Proporción para gráficos de 16:9, ajusta según sea necesario */
+        height: 500px; /* Asegura suficiente altura */
+    }
+
+    .responsive-iframe iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .texto-prueba {
+        font-family: 'Arial', sans-serif; /* Tipo de letra */
+        color: #2d4b6b; /* Color del texto */
+        text-align: center; /* Centra el texto horizontalmente */
+        font-size: 18px; /* Tamaño del texto */
+        margin-top: 20px; /* Espacio en la parte superior */
+        margin-bottom: 20px; /* Espacio en la parte inferior */
+    }
+    
+
+</style>
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-graficos-actuales-tab" data-toggle="tab" href="#nav-graficos-actuales" role="tab" aria-controls="nav-graficos-actuales" aria-selected="true">Gráficos Actuales</a>
-        <a class="nav-item nav-link" id="nav-nuevos-graficos-tab" data-toggle="tab" href="#nav-nuevos-graficos" role="tab" aria-controls="nav-nuevos-graficos" aria-selected="false">Nuevos Gráficos</a>
+        <a class="nav-item nav-link active" id="nav-graficos-actuales-tab" data-toggle="tab" href="#nav-graficos-actuales" role="tab" aria-controls="nav-graficos-actuales" aria-selected="true">Gráficos sobre Desempleo</a>
+        <a class="nav-item nav-link" id="nav-nuevos-graficos-tab" data-toggle="tab" href="#nav-nuevos-graficos" role="tab" aria-controls="nav-nuevos-graficos" aria-selected="false">Gráficos sobre PIB</a>
+        <a class="nav-item nav-link" id="nav-graficos-inflacion-tab" data-toggle="tab" href="#nav-graficos-inflacion" role="tab" aria-controls="nav-graficos-inflacion" aria-selected="false">Contenido en General</a>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-graficos-actuales" role="tabpanel" aria-labelledby="nav-graficos-actuales-tab">
         <!-- Contenido existente de gráficos -->
+        <p class="texto-prueba" style="font-family: 'Georgia', serif; font-size: 18px; color: #172336; text-shadow: 1px 1px 2px grey; text-align: center;">Contenido de prueba visible</p>
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
-                        <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.ZS&locations=SV&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        <div class="responsive-iframe">
+                             <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.ZS&locations=SV&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
+                        <div class="responsive-iframe">
                         <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.FE.ZS&locations=SV&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
+                        <div class="responsive-iframe">
                         <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
+                        <div class="responsive-iframe">
                         <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
+                        <div class="responsive-iframe">
                         <iframe src="https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no" ></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="nav-nuevos-graficos" role="tabpanel" aria-labelledby="nav-nuevos-graficos-tab">
+        <p class="texto-prueba" style="font-family: 'Georgia', serif; font-size: 18px; color: #172336; text-shadow: 1px 1px 2px grey; text-align: center;">Contenido de prueba visible</p>
         <!-- Aquí se pueden insertar nuevos gráficos -->
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                 <div class="card card-chart">
                     <div class="card-header">
-                        <iframe src="https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        <div class="responsive-iframe">
+                        <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=NY.GDP.MKTP.CD&locations=SV&start=2018" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="responsive-iframe">
+                        <iframe src="https://datos.bancomundial.org/share/widget?end=2022&indicators=NY.GDP.MKTP.KD.ZG&locations=SV&start=2018" width='100%' height='500' frameBorder='0' scrolling="no"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Repetir para más gráficos según sea necesario -->
         </div>
+    </div>
+    <div class="tab-pane fade" id="nav-graficos-inflacion" role="tabpanel" aria-labelledby="nav-graficos-inflacion-tab">
+        <p class="texto-prueba" style="font-family: 'Georgia', serif; font-size: 18px; color: #172336; text-shadow: 1px 1px 2px grey; text-align: center;">Contenido de prueba visible</p>
+        <h1 style="font-family: 'Georgia', serif; font-size: 28px; color: #34568B; text-shadow: 1px 1px 2px grey; text-align: center;">Datos Económicos de El Salvador</h1>
+<h1 style="font-family: 'Georgia', serif; font-size: 28px; color: #34568B; text-shadow: 1px 1px 2px grey; text-align: center;">Datos del Producto Interno Bruto (PIB)</h1>
     </div>
 </div>
 {% endblock %}
