@@ -34,4 +34,5 @@ urlpatterns = [
     path('publicaciones/', views.publicaciones, name='publicaciones'),
     path('paginas/', views.paginas, name='paginas'),
     path('configuraciones/', views.configuraciones, name='configuraciones'),
+    path('info/', views.graficoDesempleo_view, name='info'),
 ]

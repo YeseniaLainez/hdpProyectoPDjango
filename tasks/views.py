@@ -1,3 +1,5 @@
+import os
+import chardet
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -6,8 +8,14 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models import Task
-
+import csv
+import requests
+from django.shortcuts import render
+from io import StringIO
 from .forms import TaskForm
+import zipfile
+import io
+import tempfile
 
 # Create your views here.
 
@@ -154,3 +162,23 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+    
+
+
+
+def graficoDesempleo_view(request):
+       # Obtener la URL de compartir del gráfico (reemplaza con la URL real)
+      url_grafico = ['https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&name_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.FE.ZS&locations=SV&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.ZS&locations=SV&start=2018&view=chart'
+      
+      ]
+       # Renderizar la plantilla con la URL del gráfico
+
+      return render(request, 'info.html', {'url_grafico': url_grafico})
+  
+  
+ 
+ 
