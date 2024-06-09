@@ -146,10 +146,6 @@ def graficoPIB_view(request):
 
       return render(request, 'info.html', {'url_graficos': url_graficos})
   
-
-
- 
-
 @require_http_methods(["POST", "GET"])
 def guardar_usuario(request):
     if request.method == 'POST':
