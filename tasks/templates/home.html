@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<<<<<<< HEAD
+<!--<div class="container">
+=======
 <style>
     body {
         font-family: 'Times New Roman', serif;
@@ -62,6 +65,7 @@
 </style>
 
 <div class="container">
+>>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
     <div class="row">
         <div class="col-md-12">
             <h1>Inicio</h1>
@@ -128,7 +132,58 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+      </div>
+    <div class="col-md-6">
+      <div class="card">
+      <div class="card-header">
+      <h2>Situación Actual</h2>
+      <p>Texto descriptivo sobre la situación actual del desempleo.</p>
+    </div>
+  </div>
+  </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+      <h2>Misión</h2>
+      <p>Texto descriptivo sobre la misión del sistema o aplicación.</p>
+    </div>
+  </div>
+  </div>
+    </div>-->
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>User Dashboard</title>
+        <style>
+            .container {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>User Dashboard</h2>
+        <div class="container">
+            <p>Hola Mundo</p>
+        </div>
+        {% for container in containers %}
+            <div class="container">
+                <h3>{{ container.title }}</h3>
+                <p>{{ container.content }}</p>
+                {% if container.image %}
+                    <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </body>
+    </html>
+    
+{% endblock %}*/
+=======
     </div>
 </div>
 
 {% endblock %}
+>>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902

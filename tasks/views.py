@@ -6,6 +6,18 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+
+import csv
+import requests
+from django.shortcuts import render
+from io import StringIO
+
+import zipfile
+import io
+import tempfile
+from .models import Container
+=======
 from .models import Task
 from django.shortcuts import render
 from io import StringIO
@@ -14,6 +26,7 @@ from .models import UsuarioComun
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages 
 
+>>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
 
 # Create your views here.
 
@@ -35,35 +48,10 @@ def signup(request):
 
         return render(request, 'signup.html', {"form": UserCreationForm, "error": "Passwords did not match."})
 
-
-@login_required
-def tasks(request):
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'home.html', {"home": tasks})
-
-@login_required
-def tasks_completed(request):
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'home.html', {"tasks": tasks})
-
-
-@login_required
-def create_task(request):
-    if request.method == "GET":
-        return render(request, 'create_task.html', {"form": TaskForm})
-    else:
-        try:
-            form = TaskForm(request.POST)
-            new_task = form.save(commit=False)
-            new_task.user = request.user
-            new_task.save()
-            return redirect('tasks')
-        except ValueError:
-            return render(request, 'create_task.html', {"form": TaskForm, "error": "Error creating task."})
-
 #Se llama todos los navegadores para usuario
 def home(request):
-    return render(request, 'home.html')
+    containers = Container.objects.all()
+    return render(request, 'home.html', {'containers': containers})
 
 def info(request):
     return render(request, 'info.html')
@@ -84,7 +72,8 @@ def cuenta(request):
     return render(request, 'cuenta.html')
 
 def publicaciones(request):
-    return render(request, 'publicaciones.html')
+    containers = Container.objects.all()
+    return render(request, 'publicaciones.html',{'containers': containers})
 
 def paginas(request):
     return render(request, 'paginas.html')
@@ -98,19 +87,6 @@ def signout(request):
     logout(request)
     return redirect('home')
 
-"""
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {"form": AuthenticationForm})
-    else:
-        user = authenticate(
-            request, username=request.POST['username'], password=request.POST['password'])
-        if user is None:
-            return render(request, 'signin.html', {"form": AuthenticationForm, "error": "Username or password is incorrect."})
-
-        login(request, user)
-        return redirect('home')
-"""
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', {"form": AuthenticationForm()})
@@ -131,38 +107,32 @@ def signin(request):
                 return render(request, 'signin.html', {"form": AuthenticationForm(), "error": "Username or password is incorrect."})
             login(request, user)
             return redirect('home')
-@login_required
-def task_detail(request, task_id):
-    if request.method == 'GET':
-        task = get_object_or_404(Task, pk=task_id, user=request.user)
-        form = TaskForm(instance=task)
-        return render(request, 'task_detail.html', {'task': task, 'form': form})
-    else:
-        try:
-            task = get_object_or_404(Task, pk=task_id, user=request.user)
-            form = TaskForm(request.POST, instance=task)
-            form.save()
-            return redirect('tasks')
-        except ValueError:
-            return render(request, 'task_detail.html', {'task': task, 'form': form, 'error': 'Error updating task.'})
 
 @login_required
-def complete_task(request, task_id):
-    task = get_object_or_404(Task, pk=task_id, user=request.user)
+def add_container(request):
     if request.method == 'POST':
-        task.datecompleted = timezone.now()
-        task.save()
-        return redirect('tasks')
+        title = request.POST['title']
+        content = request.POST['content']
+        image = request.FILES.get('image')
+        Container.objects.create(title=title, content=content,image=image, user=request.user)
+    return redirect('publicaciones')
 
 @login_required
-def delete_task(request, task_id):
-    task = get_object_or_404(Task, pk=task_id, user=request.user)
+def delete_container(request, container_id):
+    container = get_object_or_404(Container, id=container_id)
+    if request.user:
+        container.delete()
+    return redirect('publicaciones')
+
+@login_required
+def update_container(request, container_id):
+    container = get_object_or_404(Container, id=container_id)
     if request.method == 'POST':
-        task.delete()
-        return redirect('tasks')
-    
-
-
+        container.title = request.POST['title']
+        container.content = request.POST['content']
+        container.image = request.FILES.get('image', container.image)
+        container.save()
+    return redirect('publicaciones')
 
 def graficoDesempleo_view(request):
        # Obtener la URL de compartir del gráfico (reemplaza con la URL real)
