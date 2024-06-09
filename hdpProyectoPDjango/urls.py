@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tasks import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,4 +37,10 @@ urlpatterns = [
     path('paginas/', views.paginas, name='paginas'),
     path('configuraciones/', views.configuraciones, name='configuraciones'),
     path('info/', views.graficoDesempleo_view, name='info'),
+    path('publicaciones/add/', views.add_container, name='add_container'),
+    path('publicaciones/delete/<int:container_id>/', views.delete_container, name='delete_container'),
+    path('publicaciones/update/<int:container_id>/', views.update_container, name='update_container'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,85 @@
-{% extends 'dashboard.html' %}
+{% extends 'dashbase.html' %}
 
 {% block content %}
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        .container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <form method="post" action="{% url 'add_container' %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title">
+        <textarea name="content" placeholder="Content"></textarea>
+        <button type="submit">Add Container</button>
+    </form>
+    {% for container in containers %}
+        <div class="container">
+            <form method="post" action="{% url 'update_container' container.id %}">
+                {% csrf_token %}
+                <input type="text" name="title" value="{{ container.title }}">
+                <textarea name="content">{{ container.content }}</textarea>
+                <button type="submit">Update</button>
+            </form>
+            <form method="post" action="{% url 'delete_container' container.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        .container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'add_container' %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title">
+        <textarea name="content" placeholder="Content"></textarea>
+        <input type="file" name="image">
+        <button type="submit">Add Container</button>
+    </form>
+    {% for container in containers %}
+        <div class="container">
+            <h3>{{ container.title }}</h3>
+            <form method="post" enctype="multipart/form-data" action="{% url 'update_container' container.id %}">
+                {% csrf_token %}
+                <input type="text" name="title" value="{{ container.title }}">
+                <textarea name="content">{{ container.content }}</textarea>
+                <input type="file" name="image">
+                {% if container.image %}
+                    <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
+                {% endif %}
+                <button type="submit">Edit</button>
+            </form>
+            <form method="post" action="{% url 'delete_container' container.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>
+
+
+
 {% endblock %}
