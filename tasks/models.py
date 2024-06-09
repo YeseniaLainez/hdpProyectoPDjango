@@ -19,3 +19,11 @@ class Container(models.Model):
 
     def __str__(self):
         return self.title + ' - ' + self.user.username
+    
+class UsuarioComun(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
+    edad = models.PositiveIntegerField(blank=True, null=True)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
+    telefono = models.CharField(max_length=15, blank=True, null=True)
+    direccion = models.TextField(blank=True, null=True)
