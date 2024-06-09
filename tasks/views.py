@@ -1,4 +1,5 @@
 
+from pyexpat.errors import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -17,7 +18,10 @@ from .forms import UserProfileForm
 import zipfile
 import io
 import tempfile
+<<<<<<< HEAD
 from django.contrib import messages
+=======
+>>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857
 from .models import Container,UsuarioComun
 
 # Create your views here.
@@ -224,11 +228,12 @@ def update_container(request, container_id):
 
 def graficoDesempleo_view(request):
        # Obtener la URL de compartir del gráfico (reemplaza con la URL real)
-      url_grafico = ['https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&name_desc=false&start=2018&view=chart'
+      url_grafico = ['https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.ADVN.MA.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
       'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.FE.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.ZS&locations=SV&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.ADVN.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
       
       ]
        # Renderizar la plantilla con la URL del gráfico
@@ -245,9 +250,14 @@ def graficoPIB_view(request):
 
       return render(request, 'info.html', {'url_graficos': url_graficos})
   
+<<<<<<< HEAD
 from django.shortcuts import get_object_or_404
 
 """@require_http_methods(["POST", "GET"])
+=======
+
+@require_http_methods(["POST", "GET"])
+>>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857
 def guardar_usuario(request):
     if request.method == 'POST':
         usuario_django = request.user
@@ -354,6 +364,7 @@ def delete_user(request, user_id):
         usuario = None
         tiene_info = False
 
+<<<<<<< HEAD
     return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})"""
 
 """def profile(request):
@@ -381,3 +392,7 @@ def user_detail(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     user_profile = UserProfile.objects.filter(user=user).first()
     return render(request, 'user_detail.html', {'user': user, 'profile': user_profile})"""
+=======
+    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})
+ 
+>>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857

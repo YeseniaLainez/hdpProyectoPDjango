@@ -1,4 +1,75 @@
 {% extends 'dashbase.html' %}
 
 {% block content %}
+<div class="content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Función en Desarrollo</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+      body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente más llamativa */
+    background: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px; /* Incremento del tamaño de fuente */
+}
+
+.container {
+    text-align: center;
+}
+
+.note {
+    background: #fff9c4;
+    padding: 60px; /* Incremento del padding */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    width: 600px; /* Incremento del ancho */
+    position: relative;
+}
+
+.logo {
+    width: 100px; /* Incremento del tamaño del logo */
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.icon-animation i {
+    font-size: 60px; /* Incremento del tamaño del icono */
+    color: #f39c12;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="note">
+            <h1><i class="fas fa-tools"></i> Función en Desarrollo</h1>
+            <p><i class="fas fa-info-circle"></i> Esta función de configuraciones está actualmente en desarrollo y estará activa para una nueva versión. Agradecemos tu preferencia.</p>
+            <p><i class="fas fa-users"></i> Desarrolladores del proyecto:</p>
+            <ul>
+                <li><i class="fas fa-user"></i> Yesenia Lainez</li>
+                <li><i class="fas fa-user"></i> Salvador Perdomo</li>
+                <li><i class="fas fa-user"></i> Manuel Vega</li>
+            </ul>
+            <p><i class="fas fa-university"></i> Este proyecto fue desarrollado para la materia HDP115 y para la Universidad de El Salvador.</p>
+            <div class="icon-animation">
+                <i class="fas fa-cog fa-spin"></i> <!-- Icono de FontAwesome, asegúrate de incluir FontAwesome -->
+            </div>
+        </div>
+    </div>
+</body>
+</div>
+
 {% endblock %}

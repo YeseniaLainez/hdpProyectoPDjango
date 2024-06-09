@@ -1,0 +1,216 @@
+<nav class="sidebar">
+    <div class="container">
+        <button id="menu-toggle" style="margin: 10px; background-color: #495057; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px;">
+            <i class="fas fa-bars" id="icon-open"></i>
+            <i class="fas fa-times" id="icon-close" style="display: none;"></i>
+        </button>
+        <a class="navbar-brand " href="/adminD">Dashboard</a>
+        <style>
+            .navbar-brand {
+             font-family: Georgia, 'Times New Roman', Times, serif;
+              font-size: 150%; /*  */
+              font-weight: bolder;
+              color: #dde1e6;
+            }
+          </style>
+       <ul class="nav flex-column mt-3">
+        {% if request.path == '/adminD/' %}
+        <li class="nav-item">
+            <a class="nav-link" href="/publicaciones"><i class="fas fa-newspaper"></i> <span>Sección de publicaciones</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/cuenta"><i class="fas fa-user-circle"></i> <span>Gestión de cuenta</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/configuraciones"><i class="fas fa-cog"></i> <span>Configuraciones</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </li>
+        {% elif request.path == '/publicaciones/' %}
+        <li class="nav-item">
+            <a class="nav-link" href="/cuenta"><i class="fas fa-user-circle"></i> <span>Gestión de cuenta</span></a>
+        </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/configuraciones"><i class="fas fa-cog"></i> <span>Configuraciones</span></a>
+         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+       </li>
+        {% elif request.path == '/cuenta/' %}
+        <li class="nav-item">
+            <a class="nav-link" href="/publicaciones"><i class="fas fa-newspaper"></i> <span>Sección de publicaciones</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/configuraciones"><i class="fas fa-cog"></i> <span>Configuraciones</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </li>
+        {% elif request.path == '/configuraciones/' %}
+        <li class="nav-item">
+            <a class="nav-link" href="/publicaciones"><i class="fas fa-newspaper"></i> <span>Sección de publicaciones</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/cuenta"><i class="fas fa-user-circle"></i> <span>Gestión de cuenta</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </li>
+        {% endif %}
+    </ul>
+    </div>
+</nav>
+<style>
+     .sidebar .navbar-brand {
+        display: inline-block; /* Asegura que el texto sea visible cuando está expandido */
+        transition: opacity 0.3s ease;
+        margin-top: auto; /* Empuja el navbar-brand hacia abajo */
+        text-align: right;
+        width: 100%;
+        font-size: 25px !important; 
+        
+    }
+
+    .sidebar.collapsed .navbar-brand {
+        opacity: 0; /* Oculta el texto cuando está colapsado */
+        pointer-events: none; /* Evita la interacción con el elemento cuando está oculto */
+    }
+      #menu-toggle {
+        position: fixed; /* Posición fija para que siempre esté accesible */
+        top: 10px; /* Ajusta según necesidad */
+        left: 10px; /* Cambia según el diseño del sidebar */
+        z-index: 1000; /* Asegura que esté sobre otros elementos */
+        background-color: #495057; /* Color de fondo */
+        color: white; /* Color del texto */
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer; /* Cursor de mano para indicar clickeabilidad */
+        transition: all 0.3s ease; /* Transición suave para cambios de estilo */
+    }
+
+    .sidebar.collapsed #menu-toggle {
+        left: 80px; /* Ajusta para alinear con el sidebar minimizado */
+    }
+    /* Estilos generales para el sidebar */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; 
+        transition: width 0.5s ease, background-color 0.3s, color 0.3s;
+        background-color: #323a42; /* Fondo constante */
+        color: #495057; /* Color de texto constante */
+    }
+
+    .sidebar.collapsed {
+        width: 80px; /* Ancho reducido cuando está colapsado */
+    }
+
+    .sidebar .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centrar íconos en modo colapsado */
+        padding: 10px 5px;
+        color: #007bff; /* Color constante para los enlaces e iconos */
+        transition: color 0.3s;
+    }
+
+    .sidebar.collapsed .nav-link {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .sidebar.collapsed .nav-link i {
+        margin-right: 0; /* Eliminar margen en modo colapsado */
+    }
+
+    .sidebar .navbar-brand, .sidebar .nav-link span {
+        display: inline-block;
+    }
+
+    .sidebar.collapsed .navbar-brand, .sidebar.collapsed .nav-link span {
+        display: none; /* Ocultar texto en modo colapsado */
+    }
+
+    .nav-item .nav-link {
+        color: white; /* Color constante del texto */
+        padding: 10px 15px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-family: "Times New Roman", Times, serif;
+        text-align: left;
+    }
+
+    .nav-item .nav-link i {
+        margin-right: 10px;
+        font-size: 20px; /* Tamaño constante de los iconos */
+    }
+
+    .content {
+        transition: margin-left 0.5s ease;
+        margin-left: 250px; /* Ajuste constante del margen izquierdo */
+    }
+
+    .sidebar.collapsed + .content {
+        margin-left: 80px; /* Ajuste constante del margen izquierdo cuando el sidebar está colapsado */
+    }
+
+    .sidebar .menu-item:hover, .sidebar .icon-link:hover {
+        color: #0056b3; /* Color de hover constante */
+    }
+
+    .sidebar .icon-link i {
+        font-size: 1.5rem; /* Tamaño constante para los iconos */
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+        const toggleButton = document.getElementById('menu-toggle');
+        const iconOpen = document.getElementById('icon-open');
+        const iconClose = document.getElementById('icon-close');
+    
+        // Verifica que todos los elementos necesarios existan
+        if (sidebar && toggleButton && iconOpen && iconClose && content) {
+            // Inicializa el sidebar en estado colapsado
+            sidebar.classList.add('collapsed');
+            iconOpen.style.display = 'inline'; // Muestra el icono de abrir
+            iconClose.style.display = 'none'; // Oculta el icono de cerrar
+            content.style.marginLeft = '80px'; // Ajusta el margen del contenido
+    
+            // Evento para alternar la expansión del sidebar
+            toggleButton.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('expanded');
+                if (sidebar.classList.contains('collapsed')) {
+                    iconOpen.style.display = 'inline';
+                    iconClose.style.display = 'none';
+                    content.style.marginLeft = '80px';
+                } else {
+                    iconOpen.style.display = 'none';
+                    iconClose.style.display = 'inline';
+                    content.style.marginLeft = '250px';
+                }
+            });
+    
+            // Marcar el ítem activo basado en la URL
+            const path = window.location.pathname;
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                if (link.getAttribute('href') === path) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        } else {
+            console.error("Algunos elementos del DOM necesarios para el script del sidebar no están presentes.");
+        }
+    });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

@@ -1,63 +1,183 @@
 {% extends 'dashbase.html' %}
 
 {% block content %}
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <style>
-        .container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Admin Dashboard</h2>
-    <form method="post" action="{% url 'add_container' %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="Title">
-        <textarea name="content" placeholder="Content"></textarea>
-        <button type="submit">Add Container</button>
-    </form>
-    {% for container in containers %}
-        <div class="container">
-            <form method="post" action="{% url 'update_container' container.id %}">
-                {% csrf_token %}
-                <input type="text" name="title" value="{{ container.title }}">
-                <textarea name="content">{{ container.content }}</textarea>
-                <button type="submit">Update</button>
-            </form>
-            <form method="post" action="{% url 'delete_container' container.id %}">
-                {% csrf_token %}
-                <button type="submit">Delete</button>
-            </form>
-        </div>
-    {% endfor %}
-</body>
-</html>-->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <style>
-        .container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Admin Dashboard</h2>
-    <form method="post" enctype="multipart/form-data" action="{% url 'add_container' %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="Title">
-        <textarea name="content" placeholder="Content"></textarea>
-        <input type="file" name="image">
-        <button type="submit">Add Container</button>
-    </form>
+<style>
+    .form-container {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    input[type="text"], textarea, input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        margin: 10px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .container {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    img {
+        margin-top: 10px;
+    }
+    .form-container, .container {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"], textarea, input[type="file"], .btn {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+img {
+    margin-top: 10px;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 1.5em; /* Tamaño más grande para títulos */
+}
+
+.form-container, .container {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical; /* Permite al usuario ajustar la altura */
+}
+
+.btn {
+    font-size: 1em; /* Tamaño de fuente para botones */
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+img {
+    margin-top: 10px;
+}
+ label {
+        display: block; /* Asegura que el label ocupe toda la línea */
+        text-align: center; /* Centra el texto del label */
+        margin: 10px 0; /* Añade un poco de margen para separación visual */
+    }
+
+    .container {
+        border-bottom: 1px solid #ccc; /* Añade una línea gris claro */
+        padding: 20px; /* Añade padding para espacio dentro del contenedor */
+        margin-bottom: 20px; /* Asegura espacio entre contenedores */
+    }
+
+    .container:last-child {
+        border-bottom: none; /* Elimina la línea del último contenedor */
+    }
+    .centered-header {
+        text-align: center;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        text-shadow: 2px 2px 2px rgba(0,0,0,0.5); /* Sombra para efecto 3D */
+        border-top: 5px solid #ccc; /* Franja superior */
+        border-bottom: 5px solid #ccc; /* Franja inferior */
+        padding: 20px 0; /* Espaciado para no tocar las franjas */
+    }
+</style>
+<div class="content">
+    <h1 class="centered-header">Panel para agregar Publicaciones</h1>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" action="{% url 'add_container' %}">
+            {% csrf_token %}
+            <label for="title">Titulo:</label>
+            <input id="title" type="text" name="title" placeholder="Title">
+            <label for="content">Contenido:</label>
+            <textarea id="content" name="content" placeholder="Content"></textarea>
+            <label for="image">Image:</label>
+            <input id="image" type="file" name="image">
+            <button class="btn" type="submit">Añadir Contenedor</button>
+        </form>
+    </div>
+
     {% for container in containers %}
         <div class="container">
             <h3>{{ container.title }}</h3>
@@ -69,17 +189,13 @@
                 {% if container.image %}
                     <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
                 {% endif %}
-                <button type="submit">Edit</button>
+                <button class="btn" type="submit">Editar</button>
             </form>
             <form method="post" action="{% url 'delete_container' container.id %}">
                 {% csrf_token %}
-                <button type="submit">Delete</button>
+                <button class="btn" type="submit">Eliminar</button>
             </form>
         </div>
     {% endfor %}
-</body>
-</html>
-
-
-
+</div>
 {% endblock %}

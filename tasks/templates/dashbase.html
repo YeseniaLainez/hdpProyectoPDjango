@@ -7,11 +7,71 @@
     <title>Django Administración</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/your/sidebar.css">
+    <style>
+      body {
+          display: flex;
+      }
+      .sidebar {
+          height: 100vh;
+          width: 250px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: #343a40;
+          color: white;
+          padding-top: 20px;
+      }
+      .sidebar .nav-link {
+          color: white;
+      }
+      .sidebar .nav-link.active {
+          background-color: #495057;
+      }
+      .content {
+          margin-left: 250px;
+          padding: 20px;
+          width: 100%;
+      }
+      .nav-item .nav-link {
+  color: white; /* Color del texto */
+  padding: 10px 15px; /* Espaciado interno para mejor clickeabilidad */
+  font-size: 20px; /* Tamaño de la fuente */
+  
+  display: flex; /* Alineación de íconos y texto */
+  align-items: center; /* Centra verticalmente el texto con el ícono */
+  font-family: "Times New Roman", Times, serif; /* Cambio de tipo de letra a Times New Roman */
+  }
+
+   .nav-item .nav-link i {
+  margin-right: 10px; /* Espacio entre el ícono y el texto */
+  font-size: 20px; /* Tamaño de los íconos */
+  }
+  .content {
+    transition: margin-left 0.5s ease; /* Transición suave para el margen izquierdo */
+    margin-left: 250px; /* Ajusta este valor al ancho inicial del sidebar expandido */
+}
+
+.sidebar.collapsed + .content {
+    margin-left: 80px; /* Ajusta este valor al ancho del sidebar colapsado */
+}
+.content {
+    transition: margin-left 0.5s ease; /* Transición suave para el margen izquierdo */
+    margin-left: 250px; /* Ajusta este valor al ancho del sidebar expandido */
+}
+
+/* Estilo para cuando el sidebar está colapsado */
+.sidebar.collapsed + .content {
+    margin-left: 80px; /* Ajusta este valor al ancho del sidebar colapsado */
+}
+  </style>
   </head>
   <body>
     
-    {% include 'dashboard.html' %}
+    {% include 'menu.html' %}
     
     {% block content %}
     {% endblock %}

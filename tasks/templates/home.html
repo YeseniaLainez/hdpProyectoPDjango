@@ -60,6 +60,9 @@
             flex-direction: column;
         }
     }
+    .centered-title {
+        text-align: center;
+    }
 </style>
 
 <div class="container">
@@ -69,98 +72,63 @@
         </div>
     </div>
     <div class="row">
-        {% for container in containers %}
         <div class="col-md-3">
             <div class="card notes-style">
                 <div class="card-header">
-                    <h2><span class="icon"><i class="fas fa-briefcase"></i></span>{{ container.title }}</h2>
+                    <h2 class="centered-title"><span class="icon"><i class="fas fa-briefcase"></i></span>Desempleo</h2>
                     <p>
-                        {{container.content}}
-                      </p>
-                      {% if container.image %}
-                        <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
-                        {% endif %}
-                      <ul>
-                          <li><strong>Educación y capacitación:</strong> La inversión en educación </li>
-                          <li><strong>Flexibilidad laboral:</strong> Fomentar modelos de trabajo más flexibles</li>
-                          <li><strong>Apoyo gubernamental:</strong> Los programas de apoyo y estímulo gubernamentales son esenciales para proteger a los trabajadores</li>
-                          <li><strong>Innovación empresarial:</strong> Incentivar a las empresas para que innoven y creen nuevos puestos de trabajo </li>
-                      </ul>
-                      <p>
-                      Abordar el desempleo requiere un enfoque multifacético .
-                      </p>
+                        El desempleo representa uno de los mayores desafíos económicos y sociales para cualquier sociedad. Se refiere a la situación en la que las personas que están capacitadas y dispuestas a trabajar no pueden encontrar un empleo remunerado. Las causas del desempleo pueden ser diversas, incluyendo cambios económicos, avances tecnológicos que reducen la necesidad de mano de obra, y fluctuaciones estacionales o estructurales en la economía.
+                    </p>
+                    <p>
+                        Las consecuencias del desempleo son profundas, afectando no solo la economía sino también el bienestar social y la calidad de vida de las personas. Puede llevar a la pobreza, reducción en el consumo, y problemas de salud mental como estrés y depresión. Combatir el desempleo requiere políticas efectivas que promuevan la creación de empleo, la educación y la capacitación laboral, así como el apoyo a las industrias emergentes.
+                    </p>
+                    
                 </div>
             </div>
         </div>
-        {% endfor %}
+       
+        
         <div class="col-md-9">
             <div class="row">
+                {% for container in containers %}
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            <h2><span class="icon"><i class="fas fa-eye"></i></span>Visión</h2>
-                            <p>
-                              Nuestra Visión es proporcionar una plataforma integral que ilustre el impacto del desempleo en la economía de un país, ofreciendo informacion detallada y datos en tiempo real. Aspiramos a ser una herramienta esencial para investigadores, formuladores de políticas y ciudadanos interesados, facilitando la comprensión de cómo el desempleo afecta diversos aspectos económicos y sociales.
-                              </p>
-                              <p>
-                              Nuestro objetivo es fomentar una mayor conciencia y comprensión sobre las causas y consecuencias del desempleo, promoviendo así un diálogo informado y la creación de políticas más efectivas que puedan mitigar sus efectos negativos. Creemos en el poder de la información para impulsar cambios positivos y en nuestra capacidad para proporcionar esa información de manera accesible y comprensible para todos.
-                              </p>
+                        <div class="card-header"{% if not container.title and not container.content %}style="padding: 0;"{% endif %}>
+                            {% if container.title or container.content %}
+                            
+                            <h2 class="centered-title">
+                                <span class="icon">
+                                    {% if "Misión" in container.title %}
+                                    <i class="fas fa-flag"></i>  <!-- Ícono de bandera para Misión -->
+                                {% elif "Visión" in container.title %}
+                                    <i class="fas fa-binoculars"></i>  <!-- Ícono de binoculares para Visión -->
+                                {% elif "Situacion Actual" in container.title %}
+                                    <i class="fas fa-chart-line"></i>  <!-- Ícono de gráfico para Situación Actual -->
+                                {% else %}
+                                    <i class="fas fa-eye"></i>  <!-- Ícono por defecto -->
+                                {% endif %}
+                            </span>
+                            {{ container.title }}
+                        </h2>
+                        <p>
+                            {{ container.content }}
+                        </p>
+                        {% endif %}
+                        {% if container.image %}
+                            <img src="{{ container.image.url }}" alt="{{ container.title }}" style="width: 100%; height: auto; display: block;">
+                        {% endif %}
+                        
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2><span class="icon"><i class="fas fa-bullseye"></i></span>Misión</h2>
-                            <p>
-                              Nuestra misión es empoderar a decisores, investigadores y al público en general con información precisa y actualizada sobre el desempleo y la economía o su factor mas significativo (PIB). Nos comprometemos a recopilar datos de diversas fuentes para ofrecer una visión completa y multifacética del desempleo.
-                              </p>
-                              <p>
-                              Estamos dedicados a mejorar la comprensión pública y profesional sobre este tema crítico, proporcionando herramientas que permitan una evaluación efectiva del tema en si. A través de nuestra plataforma, buscamos influir positivamente en la formulación de políticas y en la creación de oportunidades laborales, contribuyendo así a una economía más robusta y equitativa.
-                              </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2><span class="icon"><i class="fas fa-chart-line"></i></span>Situación Actual</h2>
-                            <p>Texto descriptivo sobre la situación actual del desempleo.</p>
-                        </div>
-                    </div>
-                </div>
+                {% if forloop.counter|divisibleby:2 %} <!-- Cierra y abre una nueva fila cada dos tarjetas -->
+                 </div><div class="row">
+              {% endif %}
+               {% endfor %}
+                
             </div>
         </div>
       </div>
     </div>
-   <!--
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>User Dashboard</title>
-        <style>
-            .container {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>User Dashboard</h2>
-        <div class="container">
-            <p>Hola Mundo</p>
-        </div>
-        {% for container in containers %}
-            <div class="container">
-                <h3>{{ container.title }}</h3>
-                <p>{{ container.content }}</p>
-                {% if container.image %}
-                    <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
-                {% endif %}
-            </div>
-        {% endfor %}
-    </body>
-    </html>
--->
+
 {% endblock %}
