@@ -2,40 +2,48 @@
 
 {% block content %}
 <style>
-.perfil, .no-info {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #f9f9f9;
-}
+    .perfil, .no-info {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #f9f9f9;
+    }
 
-.perfil h2 {
-    color: #333;
-}
+    .perfil h2 {
+        color: #333;
+    }
 
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    color: white;
-    background-color: #007BFF;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-}
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        color: white;
+        background-color: #007BFF;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
 
-.btn:hover {
-    background-color: #0056b3;
-}
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .hidden {
+        display: none;
+    }
+    .visible {
+        display: block;
+    }
 </style>
+
 {% if tiene_info %}
 <div class="perfil">
     <h2>Información Personal</h2>
-    <p><strong>Nombre Completo:</strong> {{ usuario.nombre_completo }}</p>
+    <p><strong>Nombre Completo:</strong> {{ usuario.nombre }}</p>
     <p><strong>Edad:</strong> {{ usuario.edad }}</p>
     <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
     <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
     <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
-    <a href="{% url 'editar_perfil' %}" class="btn">Editar Información</a>
+    <a href="javascript:void(0);" onclick="mostrarFormulario()" class="btn">Editar Información</a>
 </div>
 {% else %}
 <div class="no-info">
@@ -44,30 +52,17 @@
 </div>
 {% endif %}
 
-<div id="registro" style="display: none;">
-    <form method="post">
+<div id="registro" class="{% if not tiene_info %}visible{% else %}hidden{% endif %}">
+    <form method="post" action="{% url 'guardar_usuario' %}">
         {% csrf_token %}
-        <label for="nombre_completo">Nombre completo:</label>
-        <input type="text" id="nombre_completo" name="nombre_completo" required><br>
-
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required><br>
-
-        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
-
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required><br>
-
-        <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion" required><br>
-
+        {{ form.as_p }}
         <input type="submit" value="Guardar">
     </form>
 </div>
+
 <script>
 function mostrarFormulario() {
-    document.getElementById('registro').style.display = 'block';
+    document.getElementById('registro').className = 'visible';
 }
 </script>
 {% endblock %}

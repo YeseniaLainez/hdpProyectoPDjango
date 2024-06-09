@@ -2,6 +2,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils import timezone
@@ -11,11 +13,12 @@ import csv
 import requests
 from django.shortcuts import render
 from io import StringIO
-
+from .forms import UserProfileForm
 import zipfile
 import io
 import tempfile
-from .models import Container
+from django.contrib import messages
+from .models import Container,UsuarioComun
 
 # Create your views here.
 
@@ -45,8 +48,20 @@ def home(request):
 def info(request):
     return render(request, 'info.html')
 
+@login_required
 def perfil(request):
-    return render(request, 'perfil.html')
+    usuario_comun = UsuarioComun.objects.filter(user=request.user).first()
+    tiene_info = usuario_comun is not None
+
+    form = UserProfileForm(instance=usuario_comun) if not tiene_info else None
+
+    return render(request, 'perfil.html', {
+        'usuario': usuario_comun,
+        'tiene_info': tiene_info,
+        'form': form
+    })
+
+
 
 def exportar(request):
     return render(request, 'exportar.html')
@@ -57,8 +72,92 @@ def admin(request):
 def dashadmin(request):
     return render(request, 'dashadmin.html')
 
+"""@login_required
 def cuenta(request):
-    return render(request, 'cuenta.html')
+    # Verifica si el usuario actual es un superusuario
+    if not request.user:
+        return redirect('home')
+
+    users = User.objects.all()
+    usuarios_comunes = UsuarioComun.objects.all()
+    usuarios_con_info = {usuario.user_id: usuario for usuario in usuarios_comunes}
+
+    return render(request, 'cuenta.html', {
+        'users': users,
+        'usuarios_con_info': usuarios_con_info
+    })"""
+"""@login_required
+def cuenta(request):
+    if not request.user:
+        return redirect('home')
+
+    users = User.objects.all()
+    usuarios_comunes = UsuarioComun.objects.all()
+    usuarios_con_info = {usuario.user_id: usuario for usuario in usuarios_comunes}
+    
+    users_with_info = []
+    for user in users:
+        usuario = usuarios_con_info.get(user.id)
+        if usuario:
+            users_with_info.append({
+                'username': user.username,
+                'nombre': usuario.nombre,
+                'edad': usuario.edad,
+                'fecha_nacimiento': usuario.fecha_nacimiento,
+                'telefono': usuario.telefono,
+                'direccion': usuario.direccion,
+            })
+        else:
+            users_with_info.append({
+                'username': user.username,
+                'nombre': 'No registrado',
+                'edad': 'No registrado',
+                'fecha_nacimiento': 'No registrado',
+                'telefono': 'No registrado',
+                'direccion': 'No registrado',
+            })
+
+    return render(request, 'cuenta.html', {
+        'users_with_info': users_with_info,
+    })"""
+
+@login_required
+def cuenta(request):
+    if not request.user:
+        return redirect('home')
+
+    users = User.objects.all()
+    usuarios_comunes = UsuarioComun.objects.all()
+    usuarios_con_info = {usuario.user_id: usuario for usuario in usuarios_comunes}
+    
+    users_with_info = []
+    for user in users:
+        usuario = usuarios_con_info.get(user.id)
+        if usuario:
+            users_with_info.append({
+                'user_id': user.id,
+                'username': user.username,
+                'nombre': usuario.nombre,
+                'edad': usuario.edad,
+                'fecha_nacimiento': usuario.fecha_nacimiento,
+                'telefono': usuario.telefono,
+                'direccion': usuario.direccion,
+            })
+        else:
+            users_with_info.append({
+                'user_id': user.id,
+                'username': user.username,
+                'nombre': 'No registrado',
+                'edad': 'No registrado',
+                'fecha_nacimiento': 'No registrado',
+                'telefono': 'No registrado',
+                'direccion': 'No registrado',
+            })
+
+    return render(request, 'cuenta.html', {
+        'users_with_info': users_with_info,
+    })
+
 
 def publicaciones(request):
     containers = Container.objects.all()
@@ -146,35 +245,108 @@ def graficoPIB_view(request):
 
       return render(request, 'info.html', {'url_graficos': url_graficos})
   
-@require_http_methods(["POST", "GET"])
+from django.shortcuts import get_object_or_404
+
+"""@require_http_methods(["POST", "GET"])
 def guardar_usuario(request):
     if request.method == 'POST':
-        nombre_completo = request.POST['nombre_completo']
-        edad = request.POST['edad']
-        fecha_nacimiento = request.POST['fecha_nacimiento']
-        telefono = request.POST['telefono']
-        direccion = request.POST['direccion']
+        usuario_django = request.user
 
-        usuario = UsuarioComun(
-            nombre_completo=nombre_completo,
-            edad=edad,
-            fecha_nacimiento=fecha_nacimiento,
-            telefono=telefono,
-            direccion=direccion
-        )
-        usuario.save()
+        # Verifica si el usuario ya tiene un UsuarioComun asociado
+        usuario_comun_existente = UsuarioComun.objects.filter(user=usuario_django).first()
 
-        # Verifica si el usuario se ha guardado correctamente
-        if UsuarioComun.objects.filter(id=usuario.id).exists():
-            messages.success(request, 'Información guardada correctamente.')
+        if usuario_comun_existente:
+            # Si existe, actualiza los detalles del usuario
+            usuario_comun_existente.nombre = request.POST['nombre']
+            usuario_comun_existente.edad = request.POST['edad']
+            usuario_comun_existente.fecha_nacimiento = request.POST['fecha_nacimiento']
+            usuario_comun_existente.telefono = request.POST['telefono']
+            usuario_comun_existente.direccion = request.POST['direccion']
+            usuario_comun_existente.save()
         else:
-            messages.error(request, 'No se pudo guardar la información.')
+            # Si no existe, crea uno nuevo
+            nombre = request.POST['nombre']
+            edad = request.POST['edad']
+            fecha_nacimiento = request.POST['fecha_nacimiento']
+            telefono = request.POST['telefono']
+            direccion = request.POST['direccion']
 
-        return redirect('alguna_url_para_redireccionar')  # Asegúrate de cambiar esta URL
+            usuario_comun = UsuarioComun(
+                user=usuario_django,
+                nombre=nombre,
+                edad=edad,
+                fecha_nacimiento=fecha_nacimiento,
+                telefono=telefono,
+                direccion=direccion
+            )
+            usuario_comun.save()
 
-    return render(request, 'perfil.html')
+        # Redirige a alguna URL después de guardar
+        return redirect('home')
 
-def perfil_usuario(request):
+    return render(request, 'perfil.html')"""
+from django.shortcuts import get_object_or_404
+
+@login_required
+@require_http_methods(["POST", "GET"])
+def guardar_usuario(request):
+    usuario_django = request.user
+    usuario_comun_existente = UsuarioComun.objects.filter(user=usuario_django).first()
+    
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=usuario_comun_existente)
+        if form.is_valid():
+            usuario_comun = form.save(commit=False)
+            usuario_comun.user = usuario_django
+            usuario_comun.save()
+            return redirect('home')
+    else:
+        form = UserProfileForm(instance=usuario_comun_existente)
+
+    return render(request, 'perfil.html', {
+        'form': form,
+        'usuario': usuario_comun_existente,
+        'tiene_info': usuario_comun_existente is not None
+    })
+#Para editar usuario desde admin
+@login_required
+def edit_user(request, user_id):
+    user_instance = get_object_or_404(User, id=user_id)
+    user_profile_instance = get_object_or_404(UsuarioComun, user=user_instance)
+    
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile_instance)
+        password_form = PasswordChangeForm(user_instance, request.POST)
+        if form.is_valid() and password_form.is_valid():
+            form.save()
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Mantener al usuario logueado después de cambiar la contraseña
+            return redirect('cuenta')
+        else:
+            # Depuración: imprime errores en la consola
+            print(form.errors)
+            print(password_form.errors)
+    else:
+        form = UserProfileForm(instance=user_profile_instance)
+        password_form = PasswordChangeForm(user_instance)
+    return render(request, 'edit_user.html', {
+        'form': form,
+        'password_form': password_form,
+        'user_instance': user_instance
+    })
+#para eliminar usuario desde admin
+@login_required
+def delete_user(request, user_id):
+    user_instance = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        user_instance.delete()
+        return redirect('cuenta')
+    
+    return render(request, 'confirm_delete.html', {
+        'user_instance': user_instance
+    })
+    
+"""def perfil_usuario(request):
     try:
         usuario = UsuarioComun.objects.get(user=request.user)  # Asumiendo que cada usuario tiene un solo perfil
         tiene_info = True
@@ -182,4 +354,30 @@ def perfil_usuario(request):
         usuario = None
         tiene_info = False
 
-    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})
+    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})"""
+
+"""def profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserProfileForm(instance=user_profile)
+    return render(request, 'perfil.html', {'form': form})
+    
+
+def cuenta(request):
+    if not request.user:
+        return redirect('home')
+    users = UsuarioComun.objects.all()
+    return render(request, 'cuenta.html', {'users': users})"""
+"""
+@login_required
+def user_detail(request, user_id):
+    if not request.user:
+        return redirect('profile')
+    user = get_object_or_404(CustomUser, id=user_id)
+    user_profile = UserProfile.objects.filter(user=user).first()
+    return render(request, 'user_detail.html', {'user': user, 'profile': user_profile})"""
