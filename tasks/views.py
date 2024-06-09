@@ -18,10 +18,7 @@ from .forms import UserProfileForm
 import zipfile
 import io
 import tempfile
-<<<<<<< HEAD
 from django.contrib import messages
-=======
->>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857
 from .models import Container,UsuarioComun
 
 # Create your views here.
@@ -250,14 +247,11 @@ def graficoPIB_view(request):
 
       return render(request, 'info.html', {'url_graficos': url_graficos})
   
-<<<<<<< HEAD
 from django.shortcuts import get_object_or_404
 
 """@require_http_methods(["POST", "GET"])
-=======
 
 @require_http_methods(["POST", "GET"])
->>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857
 def guardar_usuario(request):
     if request.method == 'POST':
         usuario_django = request.user
@@ -364,7 +358,6 @@ def delete_user(request, user_id):
         usuario = None
         tiene_info = False
 
-<<<<<<< HEAD
     return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})"""
 
 """def profile(request):
@@ -391,8 +384,6 @@ def user_detail(request, user_id):
         return redirect('profile')
     user = get_object_or_404(CustomUser, id=user_id)
     user_profile = UserProfile.objects.filter(user=user).first()
-    return render(request, 'user_detail.html', {'user': user, 'profile': user_profile})"""
-=======
-    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})
+    return render(request, 'user_detail.html', {'user': user, 'profile': user_profile})
+    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})"""
  
->>>>>>> c737b8e48b47968f44b7f8cee5450feb5cca0857
