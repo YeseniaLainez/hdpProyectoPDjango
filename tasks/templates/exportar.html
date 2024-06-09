@@ -42,33 +42,5 @@
   </div>
   </div>
     </div>-->
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>User Dashboard</title>
-        <style>
-            .container {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>User Dashboard</h2>
-        <div class="container">
-            <p>Hola Mundo</p>
-        </div>
-        {% for container in containers %}
-            <div class="container">
-                <h3>{{ container.title }}</h3>
-                <p>{{ container.content }}</p>
-                {% if container.image %}
-                    <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
-                {% endif %}
-            </div>
-        {% endfor %}
-    </body>
-    </html>
     
 {% endblock %}

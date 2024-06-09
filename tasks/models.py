@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
     important = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)"""
 
-<<<<<<< HEAD
 class Container(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -20,14 +19,3 @@ class Container(models.Model):
 
     def __str__(self):
         return self.title + ' - ' + self.user.username
-=======
-  def __str__(self):
-    return self.title + ' - ' + self.user.username
-  
-class UsuarioComun(models.Model):
-    nombre_completo = models.CharField(max_length=100)
-    edad = models.IntegerField()
-    fecha_nacimiento = models.DateField()
-    telefono = models.CharField(max_length=15)
-    direccion = models.CharField(max_length=200)
->>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902

@@ -37,16 +37,9 @@ urlpatterns = [
     path('paginas/', views.paginas, name='paginas'),
     path('configuraciones/', views.configuraciones, name='configuraciones'),
     path('info/', views.graficoDesempleo_view, name='info'),
-<<<<<<< HEAD
     path('publicaciones/add/', views.add_container, name='add_container'),
     path('publicaciones/delete/<int:container_id>/', views.delete_container, name='delete_container'),
     path('publicaciones/update/<int:container_id>/', views.update_container, name='update_container'),
-=======
-    path('info/', views.graficoPIB_view, name='info'),
-    path('perfil/', views.guardar_usuario, name='perfil'),
-    path('perfil/', views.perfil_usuario, name='perfil'),
-   
->>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
 ]
 
 if settings.DEBUG:

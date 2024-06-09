@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-
+from django.views.decorators.http import require_http_methods
 import csv
 import requests
 from django.shortcuts import render
@@ -17,16 +16,6 @@ import zipfile
 import io
 import tempfile
 from .models import Container
-=======
-from .models import Task
-from django.shortcuts import render
-from io import StringIO
-from .forms import TaskForm
-from .models import UsuarioComun
-from django.views.decorators.http import require_http_methods
-from django.contrib import messages 
-
->>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
 
 # Create your views here.
 

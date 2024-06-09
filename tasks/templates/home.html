@@ -2,9 +2,7 @@
 
 {% block content %}
 
-<<<<<<< HEAD
-<!--<div class="container">
-=======
+<div class="container">
 <style>
     body {
         font-family: 'Times New Roman', serif;
@@ -65,23 +63,23 @@
 </style>
 
 <div class="container">
->>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
     <div class="row">
         <div class="col-md-12">
             <h1>Inicio</h1>
         </div>
     </div>
     <div class="row">
+        {% for container in containers %}
         <div class="col-md-3">
             <div class="card notes-style">
                 <div class="card-header">
-                    <h2><span class="icon"><i class="fas fa-briefcase"></i></span>Desempleo</h2>
+                    <h2><span class="icon"><i class="fas fa-briefcase"></i></span>{{ container.title }}</h2>
                     <p>
-                      El desempleo representa uno de los mayores desafíos económicos y sociales en la actualidad. Esta situación no solo afecta la estabilidad financiera de los individuos, sino que también tiene repercusiones profundas en la salud mental y el bienestar general de las personas. Factores como la automatización, los cambios en la industria y las crisis económicas globales han contribuido a incrementar las tasas de desempleo en muchas regiones.
+                        {{container.content}}
                       </p>
-                      <p>
-                      Es crucial considerar varios aspectos al abordar el desempleo: 
-                      </p>
+                      {% if container.image %}
+                        <img src="{{ container.image.url }}" alt="{{ container.title }}" style="max-width: 200px;">
+                        {% endif %}
                       <ul>
                           <li><strong>Educación y capacitación:</strong> La inversión en educación es fundamental para preparar a la fuerza laboral para las demandas del mercado laboral moderno, especialmente en áreas de rápido crecimiento como la tecnología y las energías renovables.</li>
                           <li><strong>Flexibilidad laboral:</strong> Fomentar modelos de trabajo más flexibles, como el trabajo remoto y los horarios ajustables, puede abrir más oportunidades para personas que de otro modo estarían excluidas del mercado laboral.</li>
@@ -94,6 +92,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-6">
@@ -132,25 +131,9 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
       </div>
-    <div class="col-md-6">
-      <div class="card">
-      <div class="card-header">
-      <h2>Situación Actual</h2>
-      <p>Texto descriptivo sobre la situación actual del desempleo.</p>
     </div>
-  </div>
-  </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-      <h2>Misión</h2>
-      <p>Texto descriptivo sobre la misión del sistema o aplicación.</p>
-    </div>
-  </div>
-  </div>
-    </div>-->
+   <!--
     <!DOCTYPE html>
     <html>
     <head>
@@ -179,11 +162,5 @@
         {% endfor %}
     </body>
     </html>
-    
-{% endblock %}*/
-=======
-    </div>
-</div>
-
+-->
 {% endblock %}
->>>>>>> e602bbf3aac9d058fdcc7daf36c3be423b4db902
