@@ -125,11 +125,12 @@ def update_container(request, container_id):
 
 def graficoDesempleo_view(request):
        # Obtener la URL de compartir del gráfico (reemplaza con la URL real)
-      url_grafico = ['https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&name_desc=false&start=2018&view=chart'
+      url_grafico = ['https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.ADVN.MA.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
       'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.FE.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&start=2018&view=chart'
-      'https://datos.bancomundial.org/share/widget?end=2022&indicators=SL.UEM.ADVN.ZS&locations=SV&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.FE.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.MA.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.TOTL.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
+      'https://datos.bancomundial.org/share/widget?end=2023&indicators=SL.UEM.ADVN.ZS&locations=SV&most_recent_value_desc=false&start=2018&view=chart'
       
       ]
        # Renderizar la plantilla con la URL del gráfico
@@ -149,41 +150,3 @@ def graficoPIB_view(request):
 
 
  
-
-@require_http_methods(["POST", "GET"])
-def guardar_usuario(request):
-    if request.method == 'POST':
-        nombre_completo = request.POST['nombre_completo']
-        edad = request.POST['edad']
-        fecha_nacimiento = request.POST['fecha_nacimiento']
-        telefono = request.POST['telefono']
-        direccion = request.POST['direccion']
-
-        usuario = UsuarioComun(
-            nombre_completo=nombre_completo,
-            edad=edad,
-            fecha_nacimiento=fecha_nacimiento,
-            telefono=telefono,
-            direccion=direccion
-        )
-        usuario.save()
-
-        # Verifica si el usuario se ha guardado correctamente
-        if UsuarioComun.objects.filter(id=usuario.id).exists():
-            messages.success(request, 'Información guardada correctamente.')
-        else:
-            messages.error(request, 'No se pudo guardar la información.')
-
-        return redirect('alguna_url_para_redireccionar')  # Asegúrate de cambiar esta URL
-
-    return render(request, 'perfil.html')
-
-def perfil_usuario(request):
-    try:
-        usuario = UsuarioComun.objects.get(user=request.user)  # Asumiendo que cada usuario tiene un solo perfil
-        tiene_info = True
-    except UsuarioComun.DoesNotExist:
-        usuario = None
-        tiene_info = False
-
-    return render(request, 'perfil.html', {'usuario': usuario, 'tiene_info': tiene_info})
