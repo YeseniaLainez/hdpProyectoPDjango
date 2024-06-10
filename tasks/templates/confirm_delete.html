@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Eliminación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-size: 18px; /* Tamaño de fuente más grande */
+        }
+        .container {
+            background-color: white;
+            padding: 40px; /* Padding más grande */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            width: auto; /* Asegura que el contenedor se ajuste al contenido */
+            max-width: 90%; /* Limita el ancho máximo para evitar que sea demasiado grande */
+        }
+        form {
+            margin-top: 30px;
+        }
+        button[type="submit"], a {
+            font-size: 20px; /* Botones y enlaces más grandes */
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block; /* Asegura que los botones no se apilen verticalmente */
+            margin: 10px; /* Espacio alrededor de los botones */
+        }
+        button[type="submit"] {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            background-color: #f8f9fa; /* Fondo para el enlace */
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .icon {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Eliminar Usuario: {{ user_instance.username }}</h1>
-    <p>¿Estás seguro que deseas eliminar este usuario?</p>
-    <form method="post">
-        {% csrf_token %}
-        <input type="submit" value="Eliminar">
-    </form>
-    <a href="{% url 'cuenta' %}">Cancelar</a>
+    <div class="container">
+        <h1><i class="fas fa-user-times icon"></i>Eliminar Usuario: {{ user_instance.username }}</h1>
+        <p><i class="fas fa-question-circle icon"></i>¿Estás seguro que deseas eliminar este usuario?</p>
+        <form method="post" action="{% url 'delete_user' user_instance.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn"><i class="fas fa-trash icon"></i>Eliminar</button>
+        </form>
+        <a href="{% url 'cuenta' %}"><i class="fas fa-times-circle icon"></i>Cancelar</a>
+    </div>
 </body>
 </html>
