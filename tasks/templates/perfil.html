@@ -33,36 +33,159 @@
     .visible {
         display: block;
     }
+    .form-center {
+        margin: 0 auto;
+        width: 50%; /* Ajusta el ancho según tus necesidades */
+        padding: 20px;
+        background-color: #f8f9fa; /* Color de fondo suave */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* /* Ajusta el ancho según tus necesidades */
+    } 
+    #registro {
+        font-size: 1.2rem; /* Tamaño de letra más grande */
+        font-family: 'Arial', sans-serif; /* Estilo de letra llamativo */
+        background-color: #4b8049; /* Color de fondo suave */
+        padding: 20px; /* Espaciado interno */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+        display: none; /* Inicialmente oculto */
+    }
+    label {
+        font-family: 'Arial', sans-serif; /* Estilo de letra llamativo */
+        font-size: 1.1rem; /* Tamaño de letra más grande */
+        color: #333; /* Color de texto oscuro */
+        margin-bottom: 5px; /* Espaciado debajo de la etiqueta */
+        display: block; /* Asegura que la etiqueta esté en su propia línea */
+    }
+
+    input, select {
+        width: 100%; /* Asegura que el input ocupe todo el ancho del contenedor */
+        padding: 8px; /* Espaciado interno para el input */
+        margin-bottom: 10px; /* Espaciado debajo del input */
+        border-radius: 4px; /* Bordes redondeados para el input */
+        border: 1px solid #ccc; /* Borde sutil para el input */
+    }
+
+    .btn-info {
+        width: 100%; /* Botón que ocupa todo el ancho */
+        padding: 10px; /* Espaciado interno más grande para el botón */
+        font-size: 1.1rem; /* Tamaño de letra más grande para el botón */
+    }
+    .mensaje-registro {
+        font-family: 'Georgia', serif; /* Estilo de letra elegante */
+        font-size: 1.5rem; /* Tamaño de letra más grande */
+        color: #4A235A; /* Color de texto llamativo */
+        text-align: center; /* Centrado del texto */
+        margin-top: 20px; /* Espaciado superior para separación */
+        margin-right: 10px; /* Espacio entre el icono y el texto */
+    vertical-align: middle; /* Alineación vertical con el texto */
+    }
+    .form-horizontal {
+        background-color: #f8f9fa; /* Color de fondo claro */
+        padding: 20px; /* Espaciado interno */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+        width: 80%; /* Ancho del formulario */
+        margin: 20px auto; /* Centrado y espaciado externo */
+    }
+
+    .form-horizontal input[type="submit"] {
+        background-color: #007bff; /* Color de fondo del botón */
+        color: white; /* Color de texto del botón */
+        padding: 10px 20px; /* Espaciado interno del botón */
+        border: none; /* Sin bordes */
+        border-radius: 5px; /* Bordes redondeados del botón */
+        cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+        transition: background-color 0.3s; /* Transición suave del color de fondo */
+    }
+
+    .form-horizontal input[type="submit"]:hover {
+        background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+    }
+
+    .form-horizontal p {
+        margin-bottom: 10px; /* Espaciado debajo de cada párrafo */
+    }
+    .card-body {
+        font-family: 'Arial', sans-serif; /* Cambia la fuente para todo el cuerpo de la tarjeta */
+        background-color: #f4f4f4; /* Color de fondo suave */
+        padding: 20px; /* Espaciado interno */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+        text-align: center; /* Centra el texto */
+      
+    }
+
+    .card-title {
+        color: #2C3E50; /* Color del título */
+        font-size: 2rem; /* Tamaño de la fuente del título */
+        font-weight: bold; /* Negrita */
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Sombra del texto */
+        margin-bottom: 20px; /* Espacio debajo del título */
+        border-bottom: 1px solid #ccc; /* Línea debajo del título */
+        padding-bottom: 10px; /* Espaciado debajo del título antes de la línea */
+    }
+
+    .card-text {
+        font-size: 1.2rem; /* Tamaño de la fuente del texto */
+        margin-bottom: 10px; /* Espaciado debajo de cada párrafo */
+        text-align: left; /* Alineación a la izquierda del texto dentro del contenedor centrado */
+        display: inline-block; /* Hace que el texto se comporte como un bloque en línea */
+        width: 100%; /*/* Espaciado debajo de cada párrafo */
+    }
+
+    .card-text i {
+        margin-right: 5px; /* Espacio a la derecha del icono */
+    }
+   
 </style>
 
-{% if tiene_info %}
-<div class="perfil">
-    <h2>Información Personal</h2>
-    <p><strong>Nombre Completo:</strong> {{ usuario.nombre }}</p>
-    <p><strong>Edad:</strong> {{ usuario.edad }}</p>
-    <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
-    <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
-    <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
-    <a href="javascript:void(0);" onclick="mostrarFormulario()" class="btn">Editar Información</a>
-</div>
-{% else %}
-<div class="no-info">
-    <p>Aún no ha registrado su información personal. ¿Desea registrarla?</p>
-    <a href="javascript:void(0);" onclick="mostrarFormulario()" class="btn">Registrar Información</a>
-</div>
-{% endif %}
+<div class="container mt-5">
+    {% if tiene_info %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center"><i class="fas fa-user-circle"></i> Información Personal</h2>
+            <p class="card-text"><i class="fas fa-user"></i><strong>Nombre Completo:</strong> {{ usuario.nombre }}</p>
+            <p class="card-text"><i class="fas fa-birthday-cake"></i><strong>Edad:</strong> {{ usuario.edad }}</p>
+            <p class="card-text"><i class="fas fa-calendar-alt"></i><strong>Fecha de Nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+            <p class="card-text"><i class="fas fa-phone"></i><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+            <p class="card-text"><i class="fas fa-home"></i><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+            <a href="javascript:void(0);" onclick="mostrarFormulario()" class="btn btn-primary"><i class="fas fa-edit"></i> Editar Información</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="card-body text-center">
+            <p class="mensaje-registro"><i class="fas fa-user-plus"></i> Aún no ha registrado su información personal. ¿Desea registrarla?</p>
+            <a href="javascript:void(0);" onclick="mostrarFormulario()" class="btn btn-success"><i class="fas fa-plus-circle"></i> Registrar Información</a>
+        </div>
+    </div>
+    {% endif %}
 
-<div id="registro" class="{% if not tiene_info %}visible{% else %}hidden{% endif %}">
-    <form method="post" action="{% url 'guardar_usuario' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Guardar">
-    </form>
+    <!-- Formulario de registro inicialmente oculto -->
+    <div id="registro" class="form-center"class="{% if not tiene_info %}visible{% else %}hidden{% endif %}">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 style="font-family: 'Helvetica', sans-serif; font-size: 1.8rem; color: #4A235A; text-shadow: 1px 1px 2px #000;"><i class="fas fa-pencil-alt"></i> Registrar Nueva Información</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'guardar_usuario' %}" class="form-horizontal">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Guardar">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
 function mostrarFormulario() {
-    document.getElementById('registro').className = 'visible';
+    var form = document.getElementById('registro');
+    form.style.display = form.style.display === 'block' ? 'none' : 'block'; // Alternar visibilidad
+    if (form.style.display === 'block') {
+        window.scrollTo(0, form.offsetTop); // Desplazarse al formulario cuando se muestra
+    }
 }
 </script>
 {% endblock %}
